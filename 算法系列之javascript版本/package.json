@@ -1,0 +1,15 @@
+{
+    "key": "value",
+    "name": "alogorithm",
+    "version": "0.0.1",
+    "description": "项目描述...",
+    "main": "index.js",
+    "scripts": {
+        "dev": "npm-run-all --parallel dev:**",
+        "dev:start": "nodemon --watch 分治法 --exec node \"./分治法/conquer.js\""
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.7",
+        "npm-run-all": "^4.1.5"
+    }
+}
