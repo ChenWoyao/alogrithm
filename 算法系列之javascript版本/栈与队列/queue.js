@@ -47,3 +47,55 @@ const reconstructQueue = pepole => {
     return unsorted
 }
 
+
+/*
+# 盛最多水的容器
+[题目来源](https://leetcode-cn.com/problems/container-with-most-water/)
+思路:
+[1,8,6,2,5,4,8,3,7]
+双指针: left: lindex, right: rindex, value: min(lval, rval) * (rindex - lindex)
+*/
+
+const maxArea = function (height) {
+    let [left, right] = [0, height.length - 1]
+    let result = 0
+    while (left < right) {
+        const [lval, rval] = [height[left], height[right]]
+        result = Math.max(result, Math.min(lval, rval) * (right - left))
+        if (lval <= rval) {
+            left++
+        } else {
+            right--
+        }
+    }
+    return result
+}
+
+const result = [1, 8, 6, 2, 5, 4, 8, 3, 7]
+log(maxArea(result))
+
+/**
+ * # 每日温度
+ * [题目来源](https://leetcode-cn.com/problems/daily-temperatures/)
+ * 使用单调栈来维护一个单调区间
+ */
+
+ var dailyTemperatures = function(temperatures) {
+    const length = temperatures.length
+    const [stack, ans] = [[], new Array(length).fill(0)]
+    for (let i = 0; i < length; i++) {
+        let cur = temperatures[i]
+        let intervalMax = temperatures[stack.slice(-1)[0]]
+        // log('cur', `(${i})${cur}`, 'intervalMax', `(${stack.slice(-1)[0]})${intervalMax}`)
+        while(stack.length && cur > temperatures[stack.slice(-1)[0]]) {
+            let top = stack.pop()
+            ans[top] = i - top
+            // log('expect', top, ans[top])
+        }
+        stack.push(i)
+    }
+    return ans
+};
+
+temperatures = [73,74,75,71,69,72,76,73]
+log(dailyTemperatures(temperatures))

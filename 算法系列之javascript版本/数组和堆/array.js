@@ -111,3 +111,50 @@ const threeSum = function (nums) {
     }
     return ans;
 }
+
+/**
+ # 买卖股票的最佳时机
+ [题目来源](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/)
+ 思路:
+ 双指针，left指向尽可能小，right指向尽可能大. 遍历是否还有比left更小的，比right更大的
+ 其实也就是每次确立一个连续区间
+ [7,1,5,3,6,4] -> 5, [7,6,4,3,1] -> 0
+ left:7, right:7
+ left:1, right:1,
+ left:1, right:5,
+ left:1, right:6
+ [7,6,4,3,1]
+ left:7, right:7
+ left:6, right:6,
+ left:4, right:4,
+ ...
+ left:1, right:1
+ [9, 8, 5, 10, 11, 4, 3]
+ left: 9, right: 9
+ left: 8, right: 8
+ left: 5, right: 5
+ */
+
+const maxProfit = prices => {
+    const len = prices.length
+    let [left, right] = [Infinity, 0]
+    let result = 0
+    for (let i = 0; i < len; i++) {
+        let guard = prices[i]
+        if (left > guard) {
+            left = guard
+            right = guard
+        } else {
+            if (right < guard) {
+                right = guard
+                result = Math.max(result, right - left)
+            }
+        }
+    }
+    return result
+}
+
+// let arr = [7, 1, 5, 3, 6, 4]
+// let arr = [7, 6, 4, 3, 1]
+// let arr = [7, 9, 8, 10, 4]
+// log('result:', maxProfit(arr))

@@ -169,5 +169,82 @@ const combinationSum = (candidates, target) => {
     })
 }
 
+/**
+ * # 电话号码的字母组合
+ * [题目来源](https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/)
+ * ```思路:
+    // 2-abc
+    // 3-def
+    // 深度:    选择:
+    // depth0  2  a or b or c
+    // depth1  3  d or e or f
+    // depth === str.length back
+    ```
+ */
+const letterCombinations = function (digits) {
+    const mapChar = {
+        '2': ['a', 'b', 'c'],
+        '3': ['d', 'e', 'f'],
+        '4': ['g', 'h', 'i'],
+        '5': ['j', 'k', 'l'],
+        '6': ['m', 'n', 'o'],
+        '7': ['p', 'q', 'r', 's'],
+        '8': ['t', 'u', 'v'],
+        '9': ['w', 'x', 'y', 'z'],
+    };
+    const result = []
+    const path = []
+    const dfs = depth => {
+        if (depth === digits.length) {
+            path.length && result.push(path.slice().join(''))
+            return
+        }
+        const choices = mapChar[digits[depth]]
+        for (let i = 0; i < choices.length; i++) {
+            const char = choices[i]
+            path.push(char)
+            dfs(depth + 1)
+            path.pop()
+        }
+    }
+    dfs(0)
+    return result
+}
+
+// const digits = '2'
+// log(letterCombinations(digits))
+
+// 小青蛙可以一次挑一台阶也可以2台阶，问到n台阶有多少种走法
+// 深度:    选择:
+// depth0  0
+// depth1  1
+// depth2  1-1, 2
+// depth === n back
+const jumpStep = n => {
+    const result = []
+    let path = []
+    if (n === 0) return result.length
+    const dfs = depth => {
+        if (depth === n) {
+            result.push(path.slice())
+            path = []
+            return
+        }
+        path.push(1)
+        dfs(depth + 1)
+        // 当前层数到目标层数小于等于2, 才可以跳2台阶
+        if (depth + 2 <= n) {
+            path.pop()
+            path.push(2)
+            dfs(depth + 2)
+        }
+    }
+    dfs(0)
+    return result.length
+}
 
 
+
+log(jumpStep(4))
+
+//  0, 1, 2, 3, 5, 8

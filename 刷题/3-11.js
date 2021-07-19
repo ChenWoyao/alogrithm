@@ -37,7 +37,7 @@ const log = console.log.bind(console)
 // 借用单调栈 + 哨兵 解决问题
 // https://leetcode-cn.com/problems/largest-rectangle-in-histogram/solution/bao-li-jie-fa-zhan-by-liweiwei1419/
 
-const testArr = [2,1,5,6,2,3]
+const testArr = [2, 1, 5, 6, 2, 3]
 // const testArr = [2,1,2]
 // [0, 2, 1, 2, 0]
 // 2, 1 => 2 - 0 + 1
@@ -52,7 +52,7 @@ const largestRectangleArea = (heights) => {
     for (let i = 0; i < heights.length; i++) {
         // 遇到右边的临界点，比当前值小
         log('stack', stack)
-        while(stack.length && (heights[stack[stack.length - 1]] > heights[i])) {
+        while (stack.length && (heights[stack[stack.length - 1]] > heights[i])) {
             const cur = stack.pop()
             let left = stack.slice(-1)[0] + 1
             let right = i - 1
@@ -70,7 +70,7 @@ const largestRectangleArea = (heights) => {
 /**
  * 给定一个仅包含 0 和 1 、大小为 rows x cols 的二维二进制矩阵，找出只包含 1 的最大矩形，并返回其面积。
  */
-matrix1 = [["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]
+matrix1 = [["1", "0", "1", "0", "0"], ["1", "0", "1", "1", "1"], ["1", "1", "1", "1", "1"], ["1", "0", "0", "1", "0"]]
 // 6
 matrix2 = []
 // 0
@@ -78,18 +78,18 @@ matrix3 = [["0"]]
 // 0
 matrix4 = [["1"]]
 // 1
-matrix5 = [["0","0"]]
+matrix5 = [["0", "0"]]
 // 0
 matrix6 = [
-        ["1","0","1","1","1"],
-        ["0","1","0","1","0"],
-        ["1","1","0","1","1"],
-        ["1","1","0","1","1"],
-        ["0","1","1","1","1"]
+    ["1", "0", "1", "1", "1"],
+    ["0", "1", "0", "1", "0"],
+    ["1", "1", "0", "1", "1"],
+    ["1", "1", "0", "1", "1"],
+    ["0", "1", "1", "1", "1"]
 ]
 // 6
 
-var maximalRectangle = function(matrix) {
+var maximalRectangle = function (matrix) {
     if (matrix.length === 0) return 0
     const rows = matrix.length
     const cols = matrix[0].length
@@ -101,7 +101,7 @@ var maximalRectangle = function(matrix) {
             if (matrix[i][j] == 1) {
                 let height = i
                 let count = 1
-                while(height != 0 && matrix[height][j] != 0) {
+                while (height != 0 && matrix[height][j] != 0) {
                     height -= 1
                     if (matrix[height][j] == 1) {
                         count += 1
@@ -124,7 +124,7 @@ var maximalRectangle = function(matrix) {
             // stack example: [0, 1]
             // log('rects example', rects)
             // log('stack example', stack)
-            while(stack.length && rects[stack.slice(-1)[0]] > rects[i]) {
+            while (stack.length && rects[stack.slice(-1)[0]] > rects[i]) {
                 const curIndex = stack.pop()
                 const left = stack.slice(-1)[0]
                 const right = i
